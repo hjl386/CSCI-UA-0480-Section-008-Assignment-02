@@ -1,5 +1,7 @@
 // hoffy.js
 
+const fs = require('fs');		//Imports the fs module for file reading
+
 function prod(num1, ...numN){
 //Returns the product of the arguments as a type Number, if there are no arugements the returns undefined, if there is a single argument then it retruns that argument 
 	let nums = [];
@@ -45,15 +47,6 @@ function maybe(fn){
 function constrainDecorator(fn, min, max){
 	//Returns the value of the function unless the value is less than the min in which case it returns the min or the value is greater than the max and it returns the max value
 	return function(number){
-		/*if(min === undefined && max === undefined){
-			return Number(number);
-		} else if(number >= min && number <= max){
-			return Number(number);
-		} else if(number < min){
-			return min;
-		} else if(number > max){
-			return max;
-		}*/
 		return min === undefined && max === undefined ? Number(number) : number >= min && number <= max ? Number(number) : number < min ? min : max;
 	}
 }
@@ -86,22 +79,38 @@ function simpleINIParse(s){
 	let a = str.map(ele => {
 		return ele.split('=');		
 	});
-	console.log("The array A ", a);
+//	console.log("The array A ", a);
 	object = a.reduce((acc, curVal) => {
-		console.log(acc);
-		console.log(curVal);
+//		console.log(acc);
+//		console.log(curVal);
 	if(curVal.length === 2){
 			object[curVal[0]] = curVal[1];
-			console.log(object);
+//			console.log(object);
 			return object; 
 		}
 	}, 0);
-	console.log("The Object ", object);
+//	console.log("The Object ", object);
 	return object;
 }
 
 function readFileWith(fn){
-
+//Takes a parsing function as a parameter and will return a new function that will take a fileName and a callback function as arguments, this function will parse the data.
+	//fs = require('fs');
+	return function(fileName, fn){
+		fs.readFile(fileName, 'utf8', (err, data) => {
+			console.log(err)
+			if(err){
+			//	return console.log(err);
+				throw err;
+			}
+			console.log("DATA", data);
+			//done();i
+		//	return fn(data);
+		});
+		//console.log("FS ", fs.data);
+		//console.log("\n\n FNNNN ", fn(fs.data));
+		//return fn(fs.data);
+	}
 }
 
 module.exports = {
@@ -114,7 +123,3 @@ module.exports = {
 	simpleINIParse: simpleINIParse,
 	readFileWith: readFileWith
 }
-
-
-
-
