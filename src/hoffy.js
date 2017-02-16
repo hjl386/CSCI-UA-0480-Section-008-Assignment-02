@@ -75,41 +75,31 @@ function mapWith(fn){
 function simpleINIParse(s){
 //Returns an object with the key-value pairs based on the passed in INI file ("foo=hi\nbar=hh\nbaz=gg', = separates the values and \n separates the pairs, if there is = then skip, if there is missing info foo= or =foo then assume ''). 
 	let object = {};
+	s = s.trim();
 	const str = s.split('\n');
 	let a = str.map(ele => {
 		return ele.split('=');		
 	});
-//	console.log("The array A ", a);
 	object = a.reduce((acc, curVal) => {
-//		console.log(acc);
-//		console.log(curVal);
 	if(curVal.length === 2){
 			object[curVal[0]] = curVal[1];
-//			console.log(object);
 			return object; 
 		}
 	}, 0);
-//	console.log("The Object ", object);
 	return object;
 }
 
 function readFileWith(fn){
-//Takes a parsing function as a parameter and will return a new function that will take a fileName and a callback function as arguments, this function will parse the data.
-	//fs = require('fs');
-	return function(fileName, fn){
+//Takes a parsing function as a parameter and will return a new function that will take a fileName and a callback function as arguments, this function will parse the data.	
+	return function(fileName, callBack){
 		fs.readFile(fileName, 'utf8', (err, data) => {
-			console.log(err)
 			if(err){
-			//	return console.log(err);
+				callBack(err, data);
 				throw err;
 			}
-			console.log("DATA", data);
-			//done();i
-		//	return fn(data);
+			let obj = fn(data);
+			callBack(err, obj);	
 		});
-		//console.log("FS ", fs.data);
-		//console.log("\n\n FNNNN ", fn(fs.data));
-		//return fn(fs.data);
 	}
 }
 
