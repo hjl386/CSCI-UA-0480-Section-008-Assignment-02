@@ -4,7 +4,7 @@ const fs = require('fs');		//Imports the fs module for file reading
 
 function prod(num1, ...numN){
 //Returns the product of the arguments as a type Number, if there are no arugements the returns undefined, if there is a single argument then it retruns that argument 
-	let nums = [];
+	const nums = [];
 	nums.push(num1);	
 	nums.push(...numN);
 	if(nums.length === 0){
@@ -28,7 +28,7 @@ function any(arr, fn){
 function maybe(fn){
 //Takes in a function, calls it, and then returns its value unless it was passed in undefined or null parameters in which case it returns undefined
 	return function(...args){
-		let arr = [...args];
+		const arr = [...args];
 		arr.filter(function(a, index){
 			if (a === undefined || a === null){
 				arr.splice(index, 1);
@@ -41,14 +41,14 @@ function maybe(fn){
 		} else{
 			return fn(...args);
 		} 	
-	}
+	};
 }
 
 function constrainDecorator(fn, min, max){
 	//Returns the value of the function unless the value is less than the min in which case it returns the min or the value is greater than the max and it returns the max value
 	return function(number){
 		return min === undefined && max === undefined ? Number(number) : number >= min && number <= max ? Number(number) : number < min ? min : max;
-	}
+	};
 }
 
 function limitCallsDecorator(fn, n){
@@ -59,17 +59,17 @@ function limitCallsDecorator(fn, n){
 			counter++;
 			return fn(...args);			
 		} else if(counter > n){
-			return undefined
+			return undefined;
 		}
-	}	
+	};	
 }
 
 function mapWith(fn){
 //Returns a function that takes one parameter, an array, performs the function for every value in the array returning a new array
 	return function(arr){
-		let arrNew = arr.map(fn);
+		const arrNew = arr.map(fn);
 		return arrNew;
-	}
+	};
 }
 
 function simpleINIParse(s){
@@ -77,7 +77,7 @@ function simpleINIParse(s){
 	let object = {};
 	s = s.trim();
 	const str = s.split('\n');
-	let a = str.map(ele => {
+	const a = str.map(ele => {
 		return ele.split('=');		
 	});
 	object = a.reduce((acc, curVal) => {
@@ -97,10 +97,10 @@ function readFileWith(fn){
 				callBack(err, data);
 				throw err;
 			}
-			let obj = fn(data);
+			const obj = fn(data);
 			callBack(err, obj);	
 		});
-	}
+	};
 }
 
 module.exports = {
@@ -112,4 +112,4 @@ module.exports = {
 	mapWith: mapWith,
 	simpleINIParse: simpleINIParse,
 	readFileWith: readFileWith
-}
+};
