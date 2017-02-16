@@ -87,15 +87,21 @@ function simpleINIParse(s){
 		return ele.split('=');		
 	});
 	console.log("The array A ", a);
-	object = a.reduce((ele, index) => {
-		console.log("The value you are working with ", a[index]);
-		console.log("Length at index ", index, "is ", a[index].length);
-		if(a[index].length === 2){
-			object.a[index][0] = a[index][i];
+	object = a.reduce((acc, curVal) => {
+		console.log(acc);
+		console.log(curVal);
+	if(curVal.length === 2){
+			object[curVal[0]] = curVal[1];
+			console.log(object);
+			return object; 
 		}
-	});
+	}, 0);
 	console.log("The Object ", object);
 	return object;
+}
+
+function readFileWith(fn){
+
 }
 
 module.exports = {
@@ -105,8 +111,10 @@ module.exports = {
 	constrainDecorator: constrainDecorator,
 	limitCallsDecorator: limitCallsDecorator,
 	mapWith: mapWith,
-	simpleINIParse: simpleINIParse
+	simpleINIParse: simpleINIParse,
+	readFileWith: readFileWith
 }
+
 
 
 
