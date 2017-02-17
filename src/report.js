@@ -11,8 +11,9 @@ function readMyFile(){
 		}
 		//const str = JSON.stringify(data);
 		const obj = JSON.parse(data);
-//		console.log(obj);i
-		basket.processGameData(obj);
+		console.log(obj);
+		const str = basket.processGameData(obj);
+		console.log("\n\nSTR :", str);
 	});
 }
 
