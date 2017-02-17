@@ -17,11 +17,14 @@ function readMyFile(){
 		console.log("\n\nSTR :", str);
 	});
 */
-	req.request('http://foureyes.github.io/csci-ua.0480-spring2017-008/homework/02/0021600680_gamedetail.json', function(error, response, body){
+	req('http://foureyes.github.io/csci-ua.0480-spring2017-008/homework/02/0021600680_gamedetail.json', function(error, response, body){
 		if(error){
-			throw error;	
+			console.log(error);	
 		}
-		console.log(body);
+	//	console.log(body);
+		const str = JSON.parse(body);
+		const a = basket.processGameData(str);
+		console.log(a);
 	});
 }
 
