@@ -4,7 +4,7 @@
 const basket = require('./basketfunc.js');
 const req = require('request');
 
-function readMyFile(){
+function readMyFile(url){
 	//Reads a JSON file and parses the data into a nested object of objects and arrays  
 /*	fs.readFile('../tests/0021600681_gamedetail.json', 'utf8', (err, data) => {
 		if(err){
@@ -23,8 +23,23 @@ function readMyFile(){
 		}
 	//	console.log(body);
 		const str = JSON.parse(body);
+	//	console.log(str);
 		const a = basket.processGameData(str);
 		console.log(a);
+/*
+		while(str.g.hasOwnProperty('nextgid')){
+			let url = 'http://foureyes.github.io/csci-ua.0480-spring2017-008/homework/02/ '+str.g.nextgid + '_gamedetail.json';
+			req(url, function(error, response, body){
+				if(error){ console.log(error); }
+				const s = JSON.parse(body);
+				const b = basket.processGameData(s);
+				console.log(b);
+				let url = 'http://foureyes.github.io/csci-ua.0480-spring2017-008/homework/02/ '+ s.g.nextgid + '_gamedetail.json';	
+				console.log(s.g.nextgid);
+			});
+			//console.log(url);
+		}	
+*/
 	});
 }
 
